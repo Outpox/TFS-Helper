@@ -1,0 +1,27 @@
+{
+	"manifest_version": 2,
+
+	"name": "TFS Helper",
+	"description": "This extension improves TFS tasks readability.",
+	"version": "1.0",
+	"icons": {
+		"16": "images/16x16.png",
+		"48": "images/48x48.png",
+		"96": "images/96x96.png",
+		"128": "images/128x128.png",
+		"256": "images/256x256.png"
+	},
+	"browser_action": {
+		"default_icon": "images/32x32.png"
+	},
+	"permissions": [
+		"activeTab"
+	],
+	"content_scripts" : [
+		{
+			"matches": ["http://tfs2013:8080/tfs/JuxtaCollection/*"],
+			"js": ["jquery-1.11.3.min.js", "handleDescription.js"],
+			"run_at": "document_end"
+		}
+	]
+}
