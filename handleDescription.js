@@ -30,7 +30,7 @@ function displayElements() {
 }
 
 function displayIframe() {
-	var content = window.open("", "content", "width=1000, height=800");
+	var content = window.open("", "content", "width=1000, height=800, scrollbars=yes");
     var rightPane = $("div.rightPane.hub-no-content-gutter");
     var iframes = rightPane.find("iframe");
     var description = iframes[0];
