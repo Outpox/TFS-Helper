@@ -18,13 +18,15 @@ function inject() {
 }
 
 function displayElements() {
+    $(".tfs_helper_btn").remove();
     console.info("Description events loaded...");
     var el = $(".query-result-grid > .grid-canvas > .grid-row-normal");
-    for (var i = 0; i < el.length; i++) {
-        $(el[i]).on("click", function(){
-            displayIframe();
-        });
-    }
+    var menuBar = $(".toolbar.workitem-tool-bar .menu-bar");
+    var liBtn = $("<li class='menu-item tfs_helper_btn'>Agrandir la description</li>");
+    $(liBtn).on("click", function(){
+        displayIframe();
+    });
+    menuBar.prepend(liBtn);
 }
 
 function displayIframe() {
