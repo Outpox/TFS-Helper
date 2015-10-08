@@ -20,7 +20,7 @@
 	"content_scripts" : [
 		{
 			"matches": ["http://tfs2013:8080/tfs/JuxtaCollection/*"],
-			"js": ["jquery-1.11.3.min.js", "handleDescription.js"],
+			"js": ["handleDescription.js"],
 			"run_at": "document_end"
 		}
 	]
