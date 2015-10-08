@@ -12,7 +12,7 @@ function inject() {
     $(leftHubContentLinks).on("click", function() {
         setTimeout(function(){
             displayElements();
-        }, 250);
+        }, 300);
         //Timer pour attendre le chargement des nouvelles tâches dans le DOM
     });
 }
@@ -34,6 +34,11 @@ function displayIframe() {
     var rightPane = $("div.rightPane.hub-no-content-gutter");
     var iframes = rightPane.find("iframe");
     var description = iframes[0];
+    var workItem = document.querySelectorAll(".caption")[0].innerText;
+    var title = document.querySelectorAll(".info-text")[0].innerText;
+    var iframeTitle = workItem + " " + title;
     var toInsert = description.contentWindow.document.body.innerHTML;;
+    $(content.document.body).append("<h3>" + iframeTitle + "</h3>");
     $(content.document.body).append(toInsert);
+    $(content.document.body).append("<hr>");
 }
