@@ -3,7 +3,7 @@
 // @namespace   tfsh
 // @description Ajoute un bouton pour ouvrir la description d'une tâche dans une nouvelle fenêtre
 // @include     http://tfs2013:8080/tfs/JuxtaCollection/*
-// @version     1.2
+// @version     1.3
 // @grant       none
 // ==/UserScript==
 
@@ -31,11 +31,15 @@ function displayElements() {
     console.info("Description events loaded...");
     var el = $(".query-result-grid > .grid-canvas > .grid-row-normal");
     var menuBar = $(".toolbar.workitem-tool-bar .menu-bar");
-    var liBtn = $("<li class='menu-item tfs_helper_btn'>Agrandir la description</li>");
-    $(liBtn).on("click", function(){
+    // var liBtn = $("<li class='menu-item tfs_helper_btn'>Agrandir la description</li>");
+    var liBtn = $("<li class='menu-item right-align tfs_helper_btn'><img style='position:relative;top:2px;' width='16' height='16' title='Zoom description' alt='' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAQAAAAEABcxq3DAAAA40lEQVQ4y6XTMU7DQBQE0IdFgYSEayjSRTInoOEMSXwRanpukDpdkoaKROIGHAApBZQ0UQ5Aj2l+pJW1CQuM9GXt/PF49nuXf+LkAH+NEZpYv2ONt58ML7DAF3Z4jtoFtwhNFjVesUWLKulVwW1DU+cM5iEYJNxN1B6D0Mz7LzcRse3xy6gUbWibfTSYxD5XBYNfhXYCp0EOsQnnW9wlW4DHeE7xEtphmuAvOEsX9zGcvmFuBlVol2mCJ1xiXPDlMa5yjd/8xi6TrPggdYcMOH6Uu17NKLtM55n+Jx7wUTCz4/gGyXY8T/fqxF8AAAAASUVORK5CYII=' /></li>");
+    $(liBtn).hover(function() {
+        $(this).toggleClass("hover");
+    });
+    $(liBtn).on("click", function() {
         displayIframe();
     });
-    menuBar.prepend(liBtn);
+    menuBar.append(liBtn);
 }
 
 function displayIframe() {
