@@ -46,3 +46,11 @@ function displayIframe() {
     $(content.document.body).append(toInsert);
     $(content.document.body).append("<hr>");
 }
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+    if (request.action == "tfsh_reload") {
+        displayElements();
+        inject();
+    }
+});
