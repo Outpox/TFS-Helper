@@ -46,7 +46,8 @@ function displayIframe() {
 	var content = window.open("", "content", "width=1000, height=800, scrollbars=yes");
     var rightPane = $("div.rightPane.hub-no-content-gutter");
     var iframes = rightPane.find("iframe");
-    var description = iframes[0];
+    var id = findIframeId();
+    var description = iframes[id];
     var workItem = document.querySelectorAll(".caption")[0].innerText;
     var title = document.querySelectorAll(".info-text")[0].innerText;
     var iframeTitle = workItem + " " + title;
@@ -54,4 +55,22 @@ function displayIframe() {
     $(content.document.body).append("<h3>" + iframeTitle + "</h3>");
     $(content.document.body).append(toInsert);
     $(content.document.body).append("<hr>");
+}
+
+function fullscreenWorkItem() {
+    return window.location.hash.match(/(id=\d+)/) !== null;
+}
+
+function findIframeId() {
+    var iframes = $("div.rightPane.hub-no-content-gutter").find("iframe");
+    for (var i = 0; i < iframes.length; i++) {
+        var iframeDocument = iframes[i].contentDocument || iframes[i].contentWindow.document;
+        if (iframeDocument) {
+            iframeContent = iframeDocument.getElementsByTagName('body');
+            if (iframeContent[0].innerHTML.length > 0) {
+                return i; 
+            }
+        }
+    }
+    return 0;
 }
