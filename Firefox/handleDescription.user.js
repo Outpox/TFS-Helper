@@ -3,7 +3,7 @@
 // @namespace   tfsh
 // @description Ajoute un bouton pour ouvrir la description d'une tâche dans une nouvelle fenêtre
 // @include     http://tfs2013:8080/tfs/JuxtaCollection/*
-// @version     1.3
+// @version     1.5
 // @grant       none
 // ==/UserScript==
 
