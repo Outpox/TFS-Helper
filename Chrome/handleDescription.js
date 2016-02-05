@@ -2,6 +2,7 @@ $(function() {
     //Obligé d'attendre le chargement de la page avec un timeout car les éléments sont chargés après le chargement de la page
     setTimeout(function(){
         displayElements();
+        addCompletedHelperBtn();
         inject();
     }, 2000);
 });
@@ -12,8 +13,14 @@ function inject() {
     $(leftHubContentLinks).on("click", function() {
         setTimeout(function(){
             displayElements();
+            addCompletedHelperBtn();
         }, 300);
         //Timer pour attendre le chargement des nouvelles tâches dans le DOM
+    });
+    $(".grid-row.grid-row-normal").on('click', function(){
+        setTimeout(function () {
+            addCompletedHelperBtn();
+        }, 300);
     });
 }
 
@@ -42,7 +49,7 @@ function displayIframe() {
     var workItem = document.querySelectorAll(".caption")[0].innerText;
     var title = document.querySelectorAll(".info-text")[0].innerText;
     var iframeTitle = workItem + " " + title;
-    var toInsert = description.contentWindow.document.body.innerHTML;;
+    var toInsert = description.contentWindow.document.body.innerHTML;
     $(content.document.body).append("<h3>" + iframeTitle + "</h3>");
     $(content.document.body).append(toInsert);
     $(content.document.body).append("<hr>");
@@ -59,11 +66,77 @@ function findIframeId() {
         if (iframeDocument) {
             iframeContent = iframeDocument.getElementsByTagName('body');
             if (iframeContent[0].innerHTML.length > 0) {
-                return i; 
+                return i;
             }
         }
     }
     return 0;
+}
+
+function addCompletedHelperBtn() {
+    $(".tfs_helper_el").remove();
+    var workItemView = $(".work-item-view").filter(function () {
+        return $(this).css('display') !== 'none';
+    });
+    var wiLabels = workItemView.find(".workitemcontrol-label");
+    console.log(workItemView[0]);
+    var completedWorkLabel;
+    var completedWorkInput;
+    for (var i = 0; i < wiLabels.length; i++) {
+        if (wiLabels[i].title.indexOf("[Field Name: Completed Work]") !== -1) {
+            completedWorkLabel = wiLabels[i];
+        }
+    }
+    console.log(completedWorkLabel);
+    if (completedWorkLabel !== undefined) {
+        completedWorkInput = $("#" + completedWorkLabel.htmlFor)[0];
+
+        var addTimeBtn = $('<button class="tfs_helper_el" style="padding: 0 3px; margin-left: 5px; height: 20px; font-weight: bold;">+</button>');
+        var addTimeInput = $('<input class="tfs_helper_el" type="text" style="display: none; width: 20px; margin-left: 5px; height: 20px !important; padding: 0;"/>');
+        addTimeBtn.on('click', function () {
+            addTimeBtn.hide();
+            addTimeInput.show();
+            addTimeInput.focus();
+        });
+        addTimeInput.on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                if (addTimeInput.val() !== '') {
+                    var t;
+                    if (completedWorkInput.title === '') {
+                        t = 0;
+                    } else {
+                        t = parseFloat(completedWorkInput.title);
+                    }
+                    t += parseFloat(addTimeInput.val());
+                    if (t%1 === 0) {
+                        completedWorkInput.title = t.toFixed(0);
+                        $(completedWorkInput).val(t.toFixed(0));
+                    } else {
+                        completedWorkInput.title = t.toFixed(1);
+                        $(completedWorkInput).val(t.toFixed(1));
+                    }
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent("change", false, true);
+                    completedWorkInput.dispatchEvent(evt);
+                }
+                resetAddTimeInput();
+            }
+            if (e.keyCode == 27) {
+                resetAddTimeInput();
+            }
+        });
+        addTimeInput.on('blur', function () {
+            resetAddTimeInput();
+        });
+        $(completedWorkLabel).append(addTimeBtn);
+        $(completedWorkLabel).append(addTimeInput);
+    }
+
+    function resetAddTimeInput() {
+        addTimeInput.val('');
+        addTimeInput.hide();
+        addTimeBtn.show();
+    }
 }
 
 chrome.runtime.onMessage.addListener(
