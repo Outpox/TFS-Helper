@@ -5,6 +5,7 @@
 // @include     http://tfs2013:8080/tfs/JuxtaCollection/*
 // @version     1.6
 // @grant       none
+// @downloadURL https://raw.githubusercontent.com/Outpox/TFS-Helper/master/Firefox/handleDescription.user.js
 // ==/UserScript==
 
 $(function() {
