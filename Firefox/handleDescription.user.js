@@ -3,7 +3,7 @@
 // @namespace   tfsh
 // @description Ajoute un bouton pour ouvrir la description d'une tâche dans une nouvelle fenêtre
 // @include     http://tfs2013:8080/tfs/JuxtaCollection/*
-// @version     1.6
+// @version     1.7
 // @grant       none
 // @downloadURL https://raw.githubusercontent.com/Outpox/TFS-Helper/master/Firefox/handleDescription.user.js
 // ==/UserScript==
@@ -95,7 +95,7 @@ function addCompletedHelperBtn() {
     var completedWorkLabel;
     var completedWorkInput;
     for (var i = 0; i < wiLabels.length; i++) {
-        if (wiLabels[i].title.indexOf("[Field Name: Completed Work]") !== -1) {
+        if (wiLabels[i].title.indexOf("Completed Work]") !== -1) {
             completedWorkLabel = wiLabels[i];
         }
     }

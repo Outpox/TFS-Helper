@@ -85,7 +85,7 @@ function addCompletedHelperBtn() {
     var completedWorkLabel;
     var completedWorkInput;
     for (var i = 0; i < wiLabels.length; i++) {
-        if (wiLabels[i].title.indexOf("[Field Name: Completed Work]") !== -1) {
+        if (wiLabels[i].title.indexOf("Completed Work]") !== -1) {
             completedWorkLabel = wiLabels[i];
         }
     }
