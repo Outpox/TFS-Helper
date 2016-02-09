@@ -14,19 +14,14 @@ function inject() {
         setTimeout(function(){
             displayElements();
             addCompletedHelperBtn();
-        }, 300);
-        //Timer pour attendre le chargement des nouvelles tâches dans le DOM
-    });
-    $(".grid-row.grid-row-normal").on('click', function(){
-        setTimeout(function () {
-            addCompletedHelperBtn();
+            prepareTasksEvents();
         }, 300);
     });
+    prepareTasksEvents();
 }
 
 function displayElements() {
     $(".tfs_helper_btn").remove();
-    console.info("Description events loaded...");
     var el = $(".query-result-grid > .grid-canvas > .grid-row-normal");
     var menuBar = $(".toolbar.workitem-tool-bar .menu-bar");
     // var liBtn = $("<li class='menu-item tfs_helper_btn'>Agrandir la description</li>");
@@ -73,13 +68,20 @@ function findIframeId() {
     return 0;
 }
 
+function prepareTasksEvents() {
+    $(".grid-row.grid-row-normal").on('click', function(){
+        setTimeout(function () {
+            addCompletedHelperBtn();
+        }, 300);
+    });
+}
+
 function addCompletedHelperBtn() {
     $(".tfs_helper_el").remove();
     var workItemView = $(".work-item-view").filter(function () {
         return $(this).css('display') !== 'none';
     });
     var wiLabels = workItemView.find(".workitemcontrol-label");
-    console.log(workItemView[0]);
     var completedWorkLabel;
     var completedWorkInput;
     for (var i = 0; i < wiLabels.length; i++) {
@@ -87,11 +89,10 @@ function addCompletedHelperBtn() {
             completedWorkLabel = wiLabels[i];
         }
     }
-    console.log(completedWorkLabel);
     if (completedWorkLabel !== undefined) {
         completedWorkInput = $("#" + completedWorkLabel.htmlFor)[0];
 
-        var addTimeBtn = $('<button class="tfs_helper_el" style="padding: 0 3px; margin-left: 5px; height: 20px; font-weight: bold;">+</button>');
+        var addTimeBtn = $('<button class="tfs_helper_el" style="padding: 0 3px; margin-left: 5px; height: 20px; border: none;"><span class="icon icon-add-small"></span></button>');
         var addTimeInput = $('<input class="tfs_helper_el" type="text" style="display: none; width: 20px; margin-left: 5px; height: 20px !important; padding: 0;"/>');
         addTimeBtn.on('click', function () {
             addTimeBtn.hide();
