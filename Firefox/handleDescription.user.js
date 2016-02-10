@@ -3,7 +3,7 @@
 // @namespace   tfsh
 // @description Ajoute un bouton pour ouvrir la description d'une tâche dans une nouvelle fenêtre
 // @include     http://tfs2013:8080/tfs/JuxtaCollection/*
-// @version     1.7
+// @version     1.8
 // @grant       none
 // @downloadURL https://raw.githubusercontent.com/Outpox/TFS-Helper/master/Firefox/handleDescription.user.js
 // ==/UserScript==

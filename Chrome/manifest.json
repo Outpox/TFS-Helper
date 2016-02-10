@@ -3,7 +3,7 @@
 
 	"name": "TFS Helper",
 	"description": "This extension improves TFS tasks readability.",
-	"version": "1.7",
+	"version": "1.8",
 	"icons": {
 		"16": "images/16x16.png",
 		"48": "images/48x48.png",
