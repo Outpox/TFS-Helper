@@ -55,8 +55,27 @@ function displayIframe() {
     var title = document.querySelectorAll(".info-text")[0].innerText;
     var iframeTitle = workItem + " " + title;
     var toInsert = description.contentWindow.document.body.innerHTML;
+    var workItemView = $(".work-item-view").filter(function () {
+        return $(this).css('display') !== 'none';
+    });
+    var history = workItemView.find(".message-list").clone();
+    console.log(history);
+    $(history).hide();
+    var historyCount = history.find(".message-section").length || 0;
+    var historyBtn = $('<input id="historyBtn" type="checkbox"/>');
+    historyBtn.on('change', function () {
+        if (historyBtn[0].checked) {
+            $(history).show();
+        }
+        else {
+            $(history).hide();
+        }
+    });
     $(content.document.body).append("<h3>" + iframeTitle + "</h3>");
     $(content.document.body).append(toInsert);
+    $(content.document.body).append(historyBtn);
+    $(content.document.body).append('<label for="historyBtn">History (' + historyCount + ')</label>');
+    $(content.document.body).append(history);
     $(content.document.body).append("<hr>");
 }
 
